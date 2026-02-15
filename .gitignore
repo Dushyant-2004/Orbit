@@ -1,3 +1,9 @@
 node_modules
+
+# Environment files - NEVER commit real credentials
+.env
 .env.local
-.env.example
+.env.production
+.env*.local
+
+# Keep .env.example as a template (no secrets)
