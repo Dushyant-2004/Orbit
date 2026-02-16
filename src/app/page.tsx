@@ -8,6 +8,7 @@ import { ArrowRight, Sparkles, Zap, Eye, ShoppingBag, Star, TrendingUp } from 'l
 import { FadeIn, ScrollReveal, StaggerContainer, StaggerItem, Float } from '@/components/animations/PageTransition';
 import { ProductCard } from '@/components/products/ProductCard';
 import { MagneticButton } from '@/components/ui/MagneticButton';
+import { HeroScrollVideo } from '@/components/ui/scroll-animated-video';
 
 // Dynamic import for 3D scene (client-side only)
 const Hero3DScene = dynamic(
@@ -308,6 +309,42 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Scroll Animated Video Section */}
+      <HeroScrollVideo
+        title="Experience Shopping"
+        subtitle="Like Never Before"
+        meta="AI-Powered • 3D • AR"
+        credits={
+          <>
+            <p>Powered by</p>
+            <p>Advanced AI Technology</p>
+          </>
+        }
+        media="https://videos.pexels.com/video-files/6151238/6151238-hd_1920_1080_30fps.mp4"
+        overlay={{
+          caption: "ORBIT • 2025",
+          heading: "The Future of E-Commerce",
+          paragraphs: [
+            "Discover products with immersive 3D previews, AI-powered recommendations, and AR try-on experiences.",
+            "Shop smarter with dynamic pricing and personalized suggestions tailored just for you.",
+          ],
+          extra: (
+            <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/products" className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity">
+                Explore Products
+              </Link>
+              <Link href="/ar-tryon" className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full text-white font-semibold hover:bg-white/20 transition-colors border border-white/20">
+                Try AR Mode
+              </Link>
+            </div>
+          ),
+        }}
+        initialBoxSize={320}
+        scrollHeightVh={250}
+        overlayBlur={12}
+        smoothScroll={true}
+      />
 
       {/* AI Features Section */}
       <section className="py-24 bg-dark-300/50 relative overflow-hidden">

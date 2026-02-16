@@ -639,25 +639,6 @@ export default function CheckoutPage() {
                       </motion.button>
                     ))}
                   </div>
-
-                  <motion.button
-                    onClick={() => setCurrentStep(2)}
-                    disabled={!canProceedToPayment()}
-                    className="w-full py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
-                    whileHover={{ scale: canProceedToPayment() ? 1.02 : 1 }}
-                    whileTap={{ scale: canProceedToPayment() ? 0.98 : 1 }}
-                  >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      Continue to Payment
-                      <motion.span
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ repeat: Infinity, duration: 1.5 }}
-                      >
-                        →
-                      </motion.span>
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-neon-purple via-neon-pink to-neon-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </motion.button>
                 </motion.div>
               )}
 
@@ -906,22 +887,24 @@ export default function CheckoutPage() {
                   whileHover={{ scale: loading ? 1 : 1.02 }}
                   whileTap={{ scale: loading ? 1 : 0.98 }}
                 >
-                  {loading ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      Processing...
-                    </span>
-                  ) : !razorpayLoaded ? (
-                    'Loading Payment...'
-                  ) : (
-                    <span className="flex items-center justify-center gap-2">
-                      <Lock className="w-4 h-4" />
-                      Pay {formatCurrency(grandTotal)}
-                    </span>
-                  )}
+                  <span className="relative z-10">
+                    {loading ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                        Processing...
+                      </span>
+                    ) : !razorpayLoaded ? (
+                      'Loading Payment...'
+                    ) : (
+                      <span className="flex items-center justify-center gap-2">
+                        <Lock className="w-4 h-4" />
+                        Pay {formatCurrency(grandTotal)}
+                      </span>
+                    )}
+                  </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-neon-purple via-neon-pink to-neon-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.button>
               )}

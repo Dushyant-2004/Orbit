@@ -22,7 +22,84 @@ const Product3DViewer = dynamic(
   { ssr: false, loading: () => <div className="aspect-square skeleton rounded-2xl" /> }
 );
 
-// Mock product data
+// Product images mapping - each product gets relevant images based on category
+const productImageSets: Record<string, string[]> = {
+  'Quantum Pro Headphones': [
+    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800',
+    'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800',
+    'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=800',
+    'https://images.unsplash.com/photo-1558756520-22cfe5d382ca?w=800',
+  ],
+  'Neural Smart Watch': [
+    'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800',
+    'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800',
+  ],
+  'Aura VR Glasses': [
+    'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800',
+  ],
+  'Nebula Sneakers': [
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800',
+    'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800',
+    'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800',
+  ],
+  'Cosmic Backpack': [
+    'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800',
+  ],
+  'Stellar Sunglasses': [
+    'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800',
+  ],
+  'Pulse Fitness Band': [
+    'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800',
+  ],
+  'Echo Smart Speaker': [
+    'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800',
+  ],
+};
+
+// All products data matching the products listing page
+const allProducts: Product[] = Array.from({ length: 20 }, (_, i) => {
+  const productNames = [
+    'Quantum Pro Headphones',
+    'Neural Smart Watch',
+    'Aura VR Glasses',
+    'Nebula Sneakers',
+    'Cosmic Backpack',
+    'Stellar Sunglasses',
+    'Pulse Fitness Band',
+    'Echo Smart Speaker',
+  ];
+  const name = productNames[i % 8];
+  const images = productImageSets[name] || ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800'];
+  
+  return {
+    _id: String(i + 1),
+    name,
+    slug: `product-${i + 1}`,
+    description: 'Premium quality product with advanced features',
+    shortDescription: 'Experience excellence',
+    price: [299.99, 449.99, 599.99, 189.99, 149.99, 129.99, 99.99, 199.99][i % 8],
+    originalPrice: [399.99, 549.99, 699.99, 249.99, undefined, 159.99, undefined, 249.99][i % 8],
+    category: ['Electronics', 'Wearables', 'Electronics', 'Fashion', 'Fashion', 'Fashion', 'Wearables', 'Electronics'][i % 8],
+    tags: ['premium', 'trending'],
+    images,
+    arEnabled: i % 3 === 0,
+    stock: Math.floor(Math.random() * 100) + 10,
+    sold: Math.floor(Math.random() * 1000),
+    rating: 4 + Math.random() * 0.9,
+    reviewCount: Math.floor(Math.random() * 500),
+    creatorId: '1',
+    features: [
+      'Premium Quality',
+      'Advanced Technology',
+      'Modern Design',
+    ],
+    specifications: {},
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+});
+
+// Mock default product data (used as fallback)
 const mockProduct: Product = {
   _id: '1',
   name: 'Quantum Pro Headphones',
@@ -102,19 +179,18 @@ Key Features:
 };
 
 // Mock recommendations
-const recommendations: Product[] = Array.from({ length: 4 }, (_, i) => ({
-  ...mockProduct,
-  _id: String(i + 10),
-  name: ['Neural Smart Watch', 'Aura VR Glasses', 'Echo Smart Speaker', 'Pulse Fitness Band'][i],
-  slug: `product-${i + 10}`,
-  price: [449.99, 599.99, 199.99, 149.99][i],
-  images: [[
-    'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
-    'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=500',
-    'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500',
-    'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500',
-  ][i]],
-}));
+const recommendations: Product[] = Array.from({ length: 4 }, (_, i) => {
+  const names = ['Neural Smart Watch', 'Aura VR Glasses', 'Echo Smart Speaker', 'Pulse Fitness Band'];
+  const name = names[i];
+  return {
+    ...mockProduct,
+    _id: String(i + 10),
+    name,
+    slug: `product-${i + 10}`,
+    price: [449.99, 599.99, 199.99, 149.99][i],
+    images: productImageSets[name] || ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500'],
+  };
+});
 
 // Mock reviews
 const reviews = [
@@ -155,7 +231,11 @@ export default function ProductDetailPage() {
   const [isLiked, setIsLiked] = useState(false);
   const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'reviews'>('description');
 
-  const product = mockProduct;
+  // Find product by slug from allProducts, fall back to mockProduct
+  const slug = params.slug as string;
+  const foundProduct = allProducts.find(p => p.slug === slug);
+  const product = foundProduct || mockProduct;
+  
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;

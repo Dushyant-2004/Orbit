@@ -105,15 +105,15 @@ export function Footer() {
             <div className="space-y-3 text-sm text-gray-400">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-neon-blue" />
-                <span>San Francisco, CA 94102</span>
+                <span>Haryana, India</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-neon-blue" />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 9876543210</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-neon-blue" />
-                <span>hello@orbit.store</span>
+                <span>OrbitStore@.com</span>
               </div>
             </div>
           </div>
@@ -190,7 +190,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} ORBIT. All rights reserved.
+            © {new Date().getFullYear()} ORBIT. All Rights Reserved.
           </p>
 
           {/* Social Links */}
@@ -218,7 +218,7 @@ export function Footer() {
           <div className="flex items-center gap-2 text-gray-500">
             <span className="text-sm">Secure payments by</span>
             <div className="flex items-center gap-2">
-              <div className="px-2 py-1 bg-white/5 rounded text-xs">Stripe</div>
+              <div className="px-2 py-1 bg-white/5 rounded text-xs">Razorpay</div>
               <div className="px-2 py-1 bg-white/5 rounded text-xs">PayPal</div>
               <div className="px-2 py-1 bg-white/5 rounded text-xs">Apple Pay</div>
             </div>

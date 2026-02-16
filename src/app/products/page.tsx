@@ -8,10 +8,37 @@ import { ProductCard } from '@/components/products/ProductCard';
 import { FadeIn, ScrollReveal, StaggerContainer, StaggerItem } from '@/components/animations/PageTransition';
 import { Product, ProductFilters } from '@/types';
 
+// Product images mapping for consistent display
+const productImageSets: Record<string, string[]> = {
+  'Quantum Pro Headphones': [
+    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500',
+  ],
+  'Neural Smart Watch': [
+    'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
+  ],
+  'Aura VR Glasses': [
+    'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=500',
+  ],
+  'Nebula Sneakers': [
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
+  ],
+  'Cosmic Backpack': [
+    'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+  ],
+  'Stellar Sunglasses': [
+    'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500',
+  ],
+  'Pulse Fitness Band': [
+    'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500',
+  ],
+  'Echo Smart Speaker': [
+    'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500',
+  ],
+};
+
 // Mock products data
-const allProducts: Product[] = Array.from({ length: 20 }, (_, i) => ({
-  _id: String(i + 1),
-  name: [
+const allProducts: Product[] = Array.from({ length: 20 }, (_, i) => {
+  const productNames = [
     'Quantum Pro Headphones',
     'Neural Smart Watch',
     'Aura VR Glasses',
@@ -20,40 +47,41 @@ const allProducts: Product[] = Array.from({ length: 20 }, (_, i) => ({
     'Stellar Sunglasses',
     'Pulse Fitness Band',
     'Echo Smart Speaker',
-  ][i % 8],
-  slug: `product-${i + 1}`,
-  description: 'Premium quality product with advanced features',
-  shortDescription: 'Experience excellence',
-  price: Math.floor(Math.random() * 500) + 100,
-  originalPrice: Math.random() > 0.5 ? Math.floor(Math.random() * 700) + 200 : undefined,
-  category: ['Electronics', 'Fashion', 'Wearables', 'Sports'][i % 4],
-  tags: ['premium', 'trending'],
-  images: [[
-    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500',
-    'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
-    'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=500',
-    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500',
-  ][i % 4]],
-  arEnabled: Math.random() > 0.3,
-  stock: Math.floor(Math.random() * 100),
-  sold: Math.floor(Math.random() * 1000),
-  rating: 4 + Math.random(),
-  reviewCount: Math.floor(Math.random() * 500),
-  creatorId: '1',
-  features: [],
-  specifications: {},
-  dynamicPricing: Math.random() > 0.5 ? {
-    basePrice: 100,
-    demandMultiplier: 1,
-    timeMultiplier: 1,
-    inventoryMultiplier: 1,
-    competitorMultiplier: 1,
-    finalPrice: 100,
-    factors: [],
-  } : undefined,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-}));
+  ];
+  const name = productNames[i % 8];
+  
+  return {
+    _id: String(i + 1),
+    name,
+    slug: `product-${i + 1}`,
+    description: 'Premium quality product with advanced features',
+    shortDescription: 'Experience excellence',
+    price: [299.99, 449.99, 599.99, 189.99, 149.99, 129.99, 99.99, 199.99][i % 8],
+    originalPrice: [399.99, 549.99, 699.99, 249.99, undefined, 159.99, undefined, 249.99][i % 8],
+    category: ['Electronics', 'Wearables', 'Electronics', 'Fashion', 'Fashion', 'Fashion', 'Wearables', 'Electronics'][i % 8],
+    tags: ['premium', 'trending'],
+    images: productImageSets[name] || ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500'],
+    arEnabled: i % 3 === 0,
+    stock: Math.floor(Math.random() * 100) + 10,
+    sold: Math.floor(Math.random() * 1000),
+    rating: 4 + Math.random() * 0.9,
+    reviewCount: Math.floor(Math.random() * 500),
+    creatorId: '1',
+    features: [],
+    specifications: {},
+    dynamicPricing: i % 2 === 0 ? {
+      basePrice: 100,
+      demandMultiplier: 1,
+      timeMultiplier: 1,
+      inventoryMultiplier: 1,
+      competitorMultiplier: 1,
+      finalPrice: 100,
+      factors: [],
+    } : undefined,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+});
 
 const categories = ['All', 'Electronics', 'Fashion', 'Wearables', 'Sports'];
 const sortOptions = [

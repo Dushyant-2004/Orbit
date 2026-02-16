@@ -17,6 +17,8 @@ A futuristic, next-generation e-commerce platform built with cutting-edge techno
 - **Glassmorphism Design** - Modern frosted glass aesthetics
 - **Neon Accents** - Vibrant gradient color scheme
 - **Framer Motion Animations** - Smooth page transitions and micro-interactions
+- **GSAP Scroll Animations** - Cinematic scroll-triggered video effects with ScrollTrigger
+- **Lenis Smooth Scroll** - Butter-smooth scrolling experience
 - **Custom Cursor** - Interactive cursor with magnetic effects
 - **Dark Mode** - Sleek dark theme optimized for eye comfort
 
@@ -51,7 +53,8 @@ A futuristic, next-generation e-commerce platform built with cutting-edge techno
 | **Language** | TypeScript |
 | **Styling** | Tailwind CSS |
 | **3D Graphics** | Three.js, React Three Fiber, Drei |
-| **Animations** | Framer Motion |
+| **Animations** | Framer Motion, GSAP (ScrollTrigger) |
+| **Smooth Scroll** | Lenis |
 | **Authentication** | Firebase Auth |
 | **Database** | MongoDB with Mongoose |
 | **Payments** | Razorpay |
@@ -135,6 +138,10 @@ orbit/
 │   │   ├── products/           # Product components
 │   │   ├── three/              # 3D components
 │   │   └── ui/                 # UI components
+│   │       ├── scroll-animated-video.tsx  # GSAP scroll video hero
+│   │       ├── MagneticButton.tsx
+│   │       ├── CustomCursor.tsx
+│   │       └── ...
 │   ├── lib/                    # Utilities and config
 │   ├── providers/              # Context providers
 │   └── types/                  # TypeScript definitions
@@ -161,6 +168,32 @@ All components follow a glassmorphism design pattern with:
 - Blur effects
 - Subtle borders
 - Gradient accents
+
+### Scroll-Animated Video Hero
+The homepage features a cinematic scroll-triggered video section built with:
+- **GSAP ScrollTrigger** - Scroll-based animation control
+- **Lenis** - Buttery smooth scroll physics
+- **Expanding video box** - Starts small and expands to fullscreen on scroll
+- **Headline roll-away** - 3D text animation as you scroll
+- **Overlay reveal** - Content slides up with blur transition
+
+```tsx
+import { HeroScrollVideo } from '@/components/ui/scroll-animated-video';
+
+<HeroScrollVideo
+  title="Your Title"
+  subtitle="Your Subtitle"
+  media="video-url.mp4"
+  overlay={{
+    heading: "Overlay Heading",
+    paragraphs: ["Description text"],
+    extra: <YourCTAButtons />
+  }}
+  initialBoxSize={320}
+  scrollHeightVh={250}
+  smoothScroll={true}
+/>
+```
 
 ## 🔌 API Routes
 
@@ -240,6 +273,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Next.js](https://nextjs.org/) - The React Framework
 - [Three.js](https://threejs.org/) - 3D Library
 - [Framer Motion](https://www.framer.com/motion/) - Animations
+- [GSAP](https://greensock.com/gsap/) - Professional-grade scroll animations
+- [Lenis](https://lenis.studiofreight.com/) - Smooth scroll library
 - [Tailwind CSS](https://tailwindcss.com/) - Styling
 - [Firebase](https://firebase.google.com/) - Authentication
 - [Razorpay](https://razorpay.com/) - Payments
@@ -248,5 +283,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 Built with ❤️ by the Orbit Team
-# Orbit
-# Orbit
