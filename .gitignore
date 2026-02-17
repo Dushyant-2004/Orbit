@@ -1,5 +1,9 @@
 node_modules
 
+# Next.js build output
+.next/
+out/
+
 # Environment files - NEVER commit real credentials
 .env
 .env.local
